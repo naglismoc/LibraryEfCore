@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Entities
 {
-    [Table("authors")]
+    // [Table("authors")]
     public class Author
     {
-        [Key]
-        [Column(name: "id")]
+        //  [Key]
+        //  [Column(name: "id")]
         public int Id { get; set; }
-        [Column(name: "name")]
+        //  [Column(name: "name")]
         public string Name { get; set; }
-        [Column(name: "surname")]
+        //  [Column(name: "surname")]
         public string? Surname { get; set; }
 
         //public Author()

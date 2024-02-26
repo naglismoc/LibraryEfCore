@@ -16,23 +16,23 @@ namespace LibraryConsoleApp
 
 
 
-            //    var authors = GetAuthors(authorRepository);
-            // CreateAuthor(authorRepository);
+            var authors = GetAuthors(authorRepository);
+            await CreateAuthor(authorRepository);
             //switch 1 rodyti GetAuthors(), 2 kurti createAuthor().....
         }
-        //private static async Task CreateAuthor(AuthorRepository repository)
-        //{
-        //    await Console.Out.WriteLineAsync("Iveskite autoriaus varda");
-        //    var author = new Author()
-        //    {
-        //        Name = "EFAutorName",
-        //        Surname = "EFAutorSurname"
-        //    };
-        //    await repository.CreateAsync(author);
-        //}
-        //private static async Task<List<Author>> GetAuthors(AuthorRepository repository)
-        //{
-        //    return await repository.ReadAllAsync();
-        //}
+        private static async Task CreateAuthor(AuthorRepository repository)
+        {
+            await Console.Out.WriteLineAsync("Iveskite autoriaus varda");
+            var author = new Author()
+            {
+                Name = "EFAutorName",
+                Surname = "EFAutorSurname"
+            };
+            await repository.CreateAsync(author);
+        }
+        private static async Task<List<Author>> GetAuthors(AuthorRepository repository)
+        {
+            return await repository.ReadAllAsync();
+        }
     }
 }
