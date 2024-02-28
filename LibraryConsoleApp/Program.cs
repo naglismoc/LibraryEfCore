@@ -1,26 +1,32 @@
 ﻿
 using DataAccess.Entities;
 using DataAccess.Repositories;
+using LibraryConsoleApp.Handlers;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryConsoleApp
 {
     internal class Program
     {
+        private static AuthorRepository authorRepository;
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            var dbcf = new LibraryDbContextFactory();
-            using var context = dbcf.CreateDbContext(args);
-            var authorRepository = new AuthorRepository(context);
+            ApplicationUI app = new ApplicationUI();
+            await app.RunAsync();
 
-
-
-            var authors = GetAuthors(authorRepository);
-            await CreateAuthor(authorRepository);
+            //var authors = await GetAuthors();
+            //foreach (var author in authors)
+            //{
+            //    await Console.Out.WriteLineAsync(author.Name + " " + author.Surname + " " + author.Books.Count);
+            //    foreach (var book in author.Books)
+            //    {
+            //        await Console.Out.WriteLineAsync("--" + book.Title + " " + book.Genre);
+            //    }
+            //}
+            //await CreateAuthor();
             //switch 1 rodyti GetAuthors(), 2 kurti createAuthor().....
         }
-        private static async Task CreateAuthor(AuthorRepository repository)
+        private static async Task CreateAuthor()
         {
             await Console.Out.WriteLineAsync("Iveskite autoriaus varda");
             var author = new Author()
@@ -28,11 +34,11 @@ namespace LibraryConsoleApp
                 Name = "EFAutorName",
                 Surname = "EFAutorSurname"
             };
-            await repository.CreateAsync(author);
+            await authorRepository.CreateAsync(author);
         }
-        private static async Task<List<Author>> GetAuthors(AuthorRepository repository)
+        private static async Task<List<Author>> GetAuthors()
         {
-            return await repository.ReadAllAsync();
+            return await authorRepository.ReadAllAsync();
         }
     }
 }

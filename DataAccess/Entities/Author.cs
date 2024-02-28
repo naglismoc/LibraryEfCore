@@ -6,22 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Entities
-{
-    // [Table("authors")]
-    public class Author
-    {
-        //  [Key]
-        //  [Column(name: "id")]
-        public int Id { get; set; }
-        //  [Column(name: "name")]
-        public string Name { get; set; }
-        //  [Column(name: "surname")]
-        public string? Surname { get; set; }
+namespace DataAccess.Entities;
 
-        //public Author()
-        //{
-        //    Id = null;
-        //}
-    }
+public class Author
+{
+    public long Id { get; set; }
+    public string Name { get; set; }
+    public string? Surname { get; set; }
+    public ICollection<Book> Books { get; set; }
 }
