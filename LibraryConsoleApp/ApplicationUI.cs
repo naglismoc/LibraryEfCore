@@ -15,7 +15,7 @@ namespace LibraryConsoleApp
         public ApplicationUI()
         {
             LibraryDbContextFactory dbcf = new LibraryDbContextFactory();
-            using var context = new LibraryDbContextFactory().CreateDbContext([]);
+            var context = new LibraryDbContextFactory().CreateDbContext([]);
 
             AuthorRepository authorRepository = new AuthorRepository(context);
             BookRepository bookRepository = new BookRepository(context);

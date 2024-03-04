@@ -28,11 +28,39 @@ namespace DataAccess.Repositories
         }
         public async Task<Book> ReadAsync(int id)
         {
-            return await _context.Books.Include(b => b.Author).FirstOrDefaultAsync(a => a.Id == id);
+            return await _context.Books
+                 .Select(b => new Book
+                 {
+                     Id = b.Id,
+                     Title = b.Title,
+                     Genre = b.Genre,
+                     // Include other desired Book properties
+                     Author = new Author // Include the full Author object
+                     {
+                         Id = b.Author.Id,
+                         Name = b.Author.Name,
+                         Surname = b.Author.Surname
+                     }
+                 })
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
         public async Task<List<Book>> ReadAllAsync()
         {
-            return await _context.Books.Include(b => b.Author).ToListAsync();
+            return await _context.Books
+           .Select(b => new Book
+           {
+               Id = b.Id,
+               Title = b.Title,
+               Genre = b.Genre,
+               // Include other desired Book properties
+               Author = new Author // Include the full Author object
+               {
+                   Id = b.Author.Id,
+                   Name = b.Author.Name,
+                   Surname = b.Author.Surname
+               }
+           })
+           .ToListAsync();
         }
         public async Task UpdateAsync(Book book)
         {
