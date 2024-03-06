@@ -1,0 +1,67 @@
+﻿@inject AuthorService AuthorService
+@inject NavigationManager NavigationManager
+
+@using LibraryWeb.Models
+@using LibraryWeb.Services
+@page "/authors"
+@code {
+	private List<Author> AuthorList { get; set; } = new();
+	protected override async Task OnInitializedAsync()
+	{
+		AuthorList = await AuthorService.getAuthorsAsync();
+	}
+
+	// private string NavigateToEdit(long authorId)
+	// {
+	//     NavigationManager.NavigateTo($"/authors/{authorId}/edit", forceLoad: false);
+
+	//     return "";
+	// }
+
+	private string NavigateToDelete(long authorId)
+	{
+		NavigationManager.NavigateTo($"/authors/{authorId}/delete", forceLoad: false);
+		return "";
+	}
+}
+<PageTitle>Autorių menu</PageTitle>
+<h3>Authors</h3>
+<h1>hi hi</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach (var author in AuthorList)
+		{
+		<tr>
+		  <td>@author.Name</td>
+		  <td>@author.Surname</td>
+		  <td>
+				  <a class="btn btn-success" @onclick="@(() => NavigationManager.NavigateTo($"/authors/{@author.Id}", forceLoad: false))">Show</a>
+				<a class="btn btn-primary" @onclick="@(() =>NavigationManager.NavigateTo($"/authors/{@author.Id}/edit", forceLoad: false))">Edit</a>
+			   <a  class="btn btn-danger" @onclick="@(() => NavigateToDelete(author.Id))"> Delete</a>
+
+		  </td>
+		</tr>
+		}
+  </tbody>
+</table>
+
+<div class="modal" id="editAuthorModal-@@model.Id">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  </div>
+  </div>
+</div>
+
+<div class="modal" id="deleteAuthorModal-@@model.Id">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  </div>
+  </div>
+</div>

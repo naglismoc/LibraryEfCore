@@ -31,7 +31,7 @@ namespace DataAccess.Repositories
                      Name = a.Name,
                      Surname = a.Surname,
                      // Only include relevant Book properties (e.g., Id, Title)
-                     Books = a.Books.Select(b => new Book { Id = b.Id, Title = b.Title }).ToList()
+                     Books = a.Books.Select(b => new Book { Id = b.Id, Title = b.Title, Genre = b.Genre }).ToList()
                  })
                 .FirstOrDefaultAsync(a => a.Id == id)
                 ;
@@ -46,7 +46,7 @@ namespace DataAccess.Repositories
              Name = a.Name,
              Surname = a.Surname,
              // Only include relevant Book properties (e.g., Id, Title)
-             Books = a.Books.Select(b => new Book { Id = b.Id, Title = b.Title }).ToList()
+             Books = a.Books.Select(b => new Book { Id = b.Id, Title = b.Title, Genre = b.Genre }).ToList()
          })
          .ToListAsync();
         }

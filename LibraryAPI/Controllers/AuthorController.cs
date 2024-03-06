@@ -52,6 +52,16 @@ namespace LibraryAPI.Controllers
             await authorRepository.UpdateAsync(author);
             return NoContent();
         }
+        [HttpPut("{id}/json")]
+        public async Task<IActionResult> UpdateAuthor(Author author, long id)
+        {
+            author.Id = id;
+            var dbcf = new LibraryDbContextFactory();
+            var context = dbcf.CreateDbContext([]);
+            AuthorRepository authorRepository = new AuthorRepository(context);
+            await authorRepository.UpdateAsync(author);
+            return Ok(author);
+        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthor(long id)
         {
